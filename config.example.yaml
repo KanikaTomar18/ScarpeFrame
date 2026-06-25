@@ -1,0 +1,31 @@
+# Example config: scrapes book listings from books.toscrape.com,
+# a site built specifically for practicing scrapers.
+# To point this at a different directory-style site, copy this file,
+# rename it, and update the values below — no code changes needed.
+
+site_name: "books_toscrape_demo"
+base_url: "https://books.toscrape.com/catalogue/page-{page}.html"
+start_page: 1
+max_pages: 5
+
+# Ordered list of CSS selectors to try for each listing item.
+# The scraper uses the first selector that returns results on a page.
+item_selectors:
+  - "h3 a"
+  - ".product_pod h3 a"
+
+# How to get the display text out of a matched element.
+# "text" = element.text, "attr:title" = element.get_attribute("title")
+text_source: "attr:title"
+
+# Pagination strategy: "url_pattern" (base_url has {page}) or "next_button"
+pagination:
+  type: "url_pattern"
+
+# Politeness / stealth settings
+request_delay_seconds: [2, 4]   # random delay range between pages
+headless: true
+
+# Output
+output_file: "scraped_books.csv"
+checkpoint_file: "checkpoint.json"
